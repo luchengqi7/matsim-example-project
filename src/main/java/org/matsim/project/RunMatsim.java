@@ -49,41 +49,49 @@ import java.util.Set;
 
 /**
  * @author nagel
- *
  */
-public class RunMatsim{
+public class RunMatsim {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		Config config;
-		if ( args==null || args.length==0 || args[0]==null ){
-			config = ConfigUtils.loadConfig( "scenarios/equil/config.xml" );
-		} else {
-			config = ConfigUtils.loadConfig( args );
-		}
+        Config config;
+        if (args == null || args.length == 0 || args[0] == null) {
+            config = ConfigUtils.loadConfig("scenarios/equil/config.xml");
+        } else {
+            config = ConfigUtils.loadConfig(args);
+        }
 
-		config.controler().setOverwriteFileSetting( OverwriteFileSetting.deleteDirectoryIfExists );
+        config.global().setCoordinateSystem("EPSG:31468");
+        config.controler().setOverwriteFileSetting(OverwriteFileSetting.deleteDirectoryIfExists);
+        config.planCalcScore().addActivityParams(new PlanCalcScoreConfigGroup.ActivityParams("home").setTypicalDuration(12 * 3600));
+        config.planCalcScore().addActivityParams(new PlanCalcScoreConfigGroup.ActivityParams("work").setOpeningTime(8 * 3600).setClosingTime(18 * 3600).setTypicalDuration(8 * 3600));
+        config.planCalcScore().addActivityParams(new PlanCalcScoreConfigGroup.ActivityParams("education").setTypicalDuration(5 * 3600).setOpeningTime(8 * 3600).setClosingTime(18 * 3600));
+        config.planCalcScore().addActivityParams(new PlanCalcScoreConfigGroup.ActivityParams("leisure").setTypicalDuration(3 * 3600));
+        config.planCalcScore().addActivityParams(new PlanCalcScoreConfigGroup.ActivityParams("others").setTypicalDuration(3600));
 
-		// possibly modify config here
+        config.plans().setInputCRS("EPSG:31468");
+        config.network().setInputCRS("EPSG:31468");
 
-		// ---
-		
-		Scenario scenario = ScenarioUtils.loadScenario(config) ;
+        // possibly modify config here
 
-		// possibly modify scenario here
-		
-		// ---
-		
-		Controler controler = new Controler( scenario ) ;
-		
-		// possibly modify controler here
+        // ---
+
+        Scenario scenario = ScenarioUtils.loadScenario(config);
+
+        // possibly modify scenario here
+
+        // ---
+
+        Controler controler = new Controler(scenario);
+
+        // possibly modify controler here
 
 //		controler.addOverridingModule( new OTFVisLiveModule() ) ;
 
-		
-		// ---
-		
-		controler.run();
-	}
-	
+
+        // ---
+
+        controler.run();
+    }
+
 }
