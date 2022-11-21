@@ -17,21 +17,20 @@ public class RunMatsimSimulationTest {
 
     @Test
     public void test() {
-        System.out.println("input directory: " + utils.getClassInputDirectory());
-        System.out.println("output directory: " + utils.getOutputDirectory());
-
-        Config config = ConfigUtils.createConfig();
-        config.network().setInputFile(utils.getClassInputDirectory() + "/network.xml.gz");
-        config.plans().setInputFile(utils.getClassInputDirectory() + "/plans.xml.gz");
-        config.controler().setOutputDirectory(utils.getOutputDirectory());
-        config.controler().setLastIteration(1);
-
-        Scenario scenario = ScenarioUtils.loadScenario(config);
-        Controler controler = new Controler(scenario);
-        controler.run();
-
+        System.out.println("class input directory: " + utils.getClassInputDirectory());
         System.out.println("output directory: " + utils.getOutputDirectory());
         System.out.println("input directory: " + utils.getInputDirectory());
+
+//        Config config = ConfigUtils.createConfig();
+//        config.network().setInputFile(utils.getClassInputDirectory() + "/network.xml.gz");
+//        config.plans().setInputFile(utils.getClassInputDirectory() + "/plans.xml.gz");
+//        config.controler().setOutputDirectory(utils.getOutputDirectory());
+//        config.controler().setLastIteration(1);
+//
+//        Scenario scenario = ScenarioUtils.loadScenario(config);
+//        Controler controler = new Controler(scenario);
+//        controler.run();
+
 
         System.out.println("test is complete");
     }
